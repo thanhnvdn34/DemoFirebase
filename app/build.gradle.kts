@@ -22,10 +22,24 @@ android {
     }
 
     buildTypes {
-        release {
-            optimization {
-                enable = false
-            }
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+
+        getByName("debug") {
+            isDebuggable = true
+        }
+
+        /**
+         * The `initWith` property lets you copy configurations from other build types,
+         * then configure only the settings you want to change. This one copies the debug build
+         * type, and then changes the manifest placeholder and application ID.
+         */
+        create("staging") {
+            initWith(getByName("debug"))
+            manifestPlaceholders["hostName"] = "internal.example.com"
         }
     }
     compileOptions {
