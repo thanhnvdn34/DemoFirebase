@@ -46,4 +46,3 @@ jobs:
           releaseNotes: |
             ${{ inputs.release_notes }}
             Build: ${{ github.run_number }}
-            Commit: ${{ github.sha }}
